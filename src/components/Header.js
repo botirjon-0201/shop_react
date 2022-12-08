@@ -3,12 +3,12 @@ export default function Header() {
     <div className="navbar-fixed">
       <nav>
         <div className="nav-wrapper">
-          <a href="#" className="brand-logo">
-            React Shop
+          <a href="!#" className="brand-logo">
+            React
           </a>
           <ul id="nav-mobile" className="right hide-on-med-and-down">
             <li>
-              <a href="collapsible.html">REPO</a>
+              <a href="!#">SHOP</a>
             </li>
           </ul>
         </div>
