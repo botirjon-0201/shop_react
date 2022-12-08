@@ -18,7 +18,13 @@ export default function BasketItem(props) {
         </i>
         <i
           className="material-icons basket-remove"
-          onClick={() => decrementQuantity(id)}
+          onClick={() => {
+            if (quantity > 1) {
+              decrementQuantity(id);
+            } else {
+              removeFromBasket(id);
+            }
+          }}
         >
           remove_circle
         </i>

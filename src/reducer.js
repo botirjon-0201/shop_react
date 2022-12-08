@@ -54,10 +54,9 @@ export function reducer(state, { type, payload }) {
         ...state,
         order: state.order.map((item) => {
           if (item.id === payload.id) {
-            const newQuantity = item.quantity - 1;
             return {
               ...item,
-              quantity: newQuantity >= 0 ? newQuantity : 0,
+              quantity: item.quantity > 0 ? item.quantity - 1 : 0,
             };
           } else {
             return item;
