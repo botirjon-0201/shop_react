@@ -7,7 +7,7 @@ import Cart from "./Cart";
 import BasketList from "./BasketList";
 
 export default function Shop() {
-  const { setGoods, loading, order, isBasketShow } = useContext(shopContext);
+  const { setGoods, loading, isBasketShow } = useContext(shopContext);
 
   useEffect(() => {
     fetch(API_URL, {
@@ -23,7 +23,7 @@ export default function Shop() {
 
   return (
     <div className="container content">
-      <Cart quantity={order.length} />
+      <Cart />
       {loading ? <Loader /> : <GoodList />}
       {isBasketShow && <BasketList />}
     </div>
