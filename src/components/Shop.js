@@ -1,13 +1,13 @@
 import { useEffect, useContext } from "react";
-import { shopContext } from "../context";
 import { API_KEY, API_URL } from "../config";
-import Loader from "./Loader";
-import GoodList from "./GoodList";
-import Cart from "./Cart";
+import { ShopContext } from "../context";
 import BasketList from "./BasketList";
+import Cart from "./Cart";
+import GoodsList from "./GoodsList";
+import Loader from "./Loader";
 
 export default function Shop() {
-  const { setGoods, loading, isBasketShow } = useContext(shopContext);
+  const { setGoods, loading, isBasketShow } = useContext(ShopContext);
 
   useEffect(() => {
     fetch(API_URL, {
@@ -17,14 +17,14 @@ export default function Shop() {
     })
       .then((response) => response.json())
       .then((data) => {
-        setGoods(data.featured);
+        setGoods(data.shop);
       });
   }, []);
 
   return (
     <div className="container content">
       <Cart />
-      {loading ? <Loader /> : <GoodList />}
+      {loading ? <Loader /> : <GoodsList />}
       {isBasketShow && <BasketList />}
     </div>
   );

@@ -1,18 +1,18 @@
 import { useContext } from "react";
-import { shopContext } from "../context";
+import { ShopContext } from "../context";
 
-export default function BasketItem(props) {
-  const { id, name, price, quantity } = props;
+function BasketItem(props) {
+  const { mainId, displayName, price, quantity } = props;
   const { removeFromBasket, incrementQuantity, decrementQuantity } =
-    useContext(shopContext);
+    useContext(ShopContext);
 
   return (
-    <li className="collection-item">
-      {name} x {quantity} = {price * quantity} $
+    <li className="collection-item" key={mainId}>
+      {displayName} x {quantity} = {price.regularPrice * quantity} $
       <span className="secondary-content">
         <i
           className="material-icons basket-add"
-          onClick={() => incrementQuantity(id)}
+          onClick={() => incrementQuantity(mainId)}
         >
           add_circle
         </i>
@@ -20,9 +20,9 @@ export default function BasketItem(props) {
           className="material-icons basket-remove"
           onClick={() => {
             if (quantity > 1) {
-              decrementQuantity(id);
+              decrementQuantity(mainId);
             } else {
-              removeFromBasket(id);
+              removeFromBasket(mainId);
             }
           }}
         >
@@ -30,7 +30,7 @@ export default function BasketItem(props) {
         </i>
         <i
           className="material-icons basket-delete"
-          onClick={() => removeFromBasket(id)}
+          onClick={() => removeFromBasket(mainId)}
         >
           delete_forever
         </i>
@@ -38,3 +38,5 @@ export default function BasketItem(props) {
     </li>
   );
 }
+
+export default BasketItem;

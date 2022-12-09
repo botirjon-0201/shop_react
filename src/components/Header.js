@@ -1,4 +1,4 @@
-export default function Header() {
+function Header() {
   return (
     <div className="navbar-fixed">
       <nav>
@@ -8,7 +8,7 @@ export default function Header() {
           </a>
           <ul id="nav-mobile" className="right hide-on-med-and-down">
             <li>
-              <a href="!#">SHOP</a>
+              <a href="!#">Shop</a>
             </li>
           </ul>
         </div>
@@ -16,3 +16,5 @@ export default function Header() {
     </div>
   );
 }
+
+export default Header;

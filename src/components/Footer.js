@@ -1,4 +1,4 @@
-export default function Footer() {
+function Footer() {
   return (
     <footer className="page-footer">
       <div className="footer-copyright">
@@ -12,3 +12,5 @@ export default function Footer() {
     </footer>
   );
 }
+
+export default Footer;
