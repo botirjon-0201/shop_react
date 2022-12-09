@@ -1,4 +1,5 @@
 import { createContext, useReducer } from "react";
+import { toast } from "react-toastify";
 import { reducer } from "./reducer";
 
 export const shopContext = createContext();
@@ -15,14 +16,17 @@ export default function ContextProvider({ children }) {
 
   value.addToBasket = (item) => {
     dispatch({ type: "ADD_TO_BASKET", payload: item });
+    toast.success("Goods added to basket successfully!");
   };
 
   value.incrementQuantity = (itemId) => {
     dispatch({ type: "INCREMENT_QUANTITY", payload: { id: itemId } });
+    toast.info("Goods increased by one!");
   };
 
   value.decrementQuantity = (itemId) => {
     dispatch({ type: "DECREMENT_QUANTITY", payload: { id: itemId } });
+    toast.error("Goods decreased by one!");
   };
 
   value.handleBasketShow = () => {
@@ -31,6 +35,12 @@ export default function ContextProvider({ children }) {
 
   value.removeFromBasket = (itemId) => {
     dispatch({ type: "REMOVE_FROM_BASKET", payload: { id: itemId } });
+    toast.success(
+      <p>
+        Goods <span style={{ color: "red" }}>deleted</span> from basket
+        successfully!
+      </p>
+    );
   };
 
   value.setGoods = (data) => {
