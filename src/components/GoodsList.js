@@ -1,9 +1,8 @@
-import { useContext } from "react";
-import { ShopContext } from "../context";
+import { useSelector } from "react-redux";
 import GoodItem from "./GoodItem";
 
 function GoodsList() {
-  const { goods } = useContext(ShopContext);
+  const { goods } = useSelector((state) => state);
 
   if (!goods.length) {
     return <h1>Nothing here</h1>;

@@ -1,9 +1,10 @@
-import { useContext } from "react";
-import { ShopContext } from "../context";
+import { useDispatch } from "react-redux";
+import { toast } from "react-toastify";
+import { addToBasket } from "../redux/reducers/good_slice";
 
 function GoodItem(props) {
   const { mainId, displayName, displayDescription, price, granted } = props;
-  const { addToBasket } = useContext(ShopContext);
+  const dispatch = useDispatch();
 
   return (
     <div key={mainId} className="card">
@@ -17,7 +18,10 @@ function GoodItem(props) {
       <div className="card-action">
         <button
           className="btn"
-          onClick={() => addToBasket({ mainId, displayName, price })}
+          onClick={() => {
+            dispatch(addToBasket({ mainId, displayName, price }));
+            toast.success("Goods added to basket successfully!");
+          }}
         >
           Buy
         </button>

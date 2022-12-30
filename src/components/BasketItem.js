@@ -1,10 +1,14 @@
-import { useContext } from "react";
-import { ShopContext } from "../context";
+import { useDispatch } from "react-redux";
+import { toast } from "react-toastify";
+import {
+  decrementQuantity,
+  incrementQuantity,
+  removeFromBasket,
+} from "../redux/reducers/good_slice";
 
 function BasketItem(props) {
   const { mainId, displayName, price, quantity } = props;
-  const { removeFromBasket, incrementQuantity, decrementQuantity } =
-    useContext(ShopContext);
+  const dispatch = useDispatch();
 
   return (
     <li className="collection-item" key={mainId}>
@@ -12,7 +16,10 @@ function BasketItem(props) {
       <span className="secondary-content">
         <i
           className="material-icons basket-add"
-          onClick={() => incrementQuantity(mainId)}
+          onClick={() => {
+            dispatch(incrementQuantity(mainId));
+            toast.info("Goods increased by one!");
+          }}
         >
           add_circle
         </i>
@@ -20,9 +27,15 @@ function BasketItem(props) {
           className="material-icons basket-remove"
           onClick={() => {
             if (quantity > 1) {
-              decrementQuantity(mainId);
+              dispatch(decrementQuantity(mainId));
+              toast.error("Goods decreased by one!");
             } else {
-              removeFromBasket(mainId);
+              dispatch(removeFromBasket(mainId));
+              toast.success(
+                <p style={{ color: "red" }}>
+                  Goods deleted from basket successfully!
+                </p>
+              );
             }
           }}
         >
@@ -30,7 +43,14 @@ function BasketItem(props) {
         </i>
         <i
           className="material-icons basket-delete"
-          onClick={() => removeFromBasket(mainId)}
+          onClick={() => {
+            dispatch(removeFromBasket(mainId));
+            toast.success(
+              <p style={{ color: "red" }}>
+                Goods deleted from basket successfully!
+              </p>
+            );
+          }}
         >
           delete_forever
         </i>

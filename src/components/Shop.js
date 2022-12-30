@@ -1,13 +1,15 @@
-import { useEffect, useContext } from "react";
-import { API_KEY, API_URL } from "../config";
-import { ShopContext } from "../context";
+import { useEffect } from "react";
+import { API_KEY, API_URL } from "../service/api";
 import BasketList from "./BasketList";
 import Cart from "./Cart";
 import GoodsList from "./GoodsList";
 import Loader from "./Loader";
+import { useDispatch, useSelector } from "react-redux";
+import { setGoods } from "../redux/reducers/good_slice";
 
 export default function Shop() {
-  const { setGoods, loading, isBasketShow } = useContext(ShopContext);
+  const { isLoading, isBasketShow } = useSelector((state) => state);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     fetch(API_URL, {
@@ -17,14 +19,15 @@ export default function Shop() {
     })
       .then((response) => response.json())
       .then((data) => {
-        setGoods(data.shop);
+        dispatch(setGoods(data.shop));
       });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
     <div className="container content">
       <Cart />
-      {loading ? <Loader /> : <GoodsList />}
+      {isLoading ? <Loader /> : <GoodsList />}
       {isBasketShow && <BasketList />}
     </div>
   );

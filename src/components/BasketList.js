@@ -1,9 +1,10 @@
-import { useContext } from "react";
-import { ShopContext } from "../context";
+import { useDispatch, useSelector } from "react-redux";
+import { toggleBasketShow } from "../redux/reducers/good_slice";
 import BasketItem from "./BasketItem";
 
 function BasketList() {
-  const { order, handleBasketShow } = useContext(ShopContext);
+  const { order } = useSelector((state) => state);
+  const dispatch = useDispatch();
 
   const totalPrice = order.reduce((sum, elem) => {
     return sum + elem.price.regularPrice * elem.quantity;
@@ -21,7 +22,10 @@ function BasketList() {
           <li className="collection-item">Basket is empty</li>
         )}
         <li className="collection-item active">Total cost: {totalPrice}</li>
-        <i className="material-icons basket-close" onClick={handleBasketShow}>
+        <i
+          className="material-icons basket-close"
+          onClick={() => dispatch(toggleBasketShow())}
+        >
           close
         </i>
       </ul>
